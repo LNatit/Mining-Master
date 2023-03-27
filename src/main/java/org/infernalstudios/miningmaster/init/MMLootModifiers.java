@@ -33,6 +33,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.infernalstudios.miningmaster.MiningMaster;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +57,8 @@ public class MMLootModifiers {
         @Nonnull
         @Override
         protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-            for (ItemStack item : generatedLoot) {
+            List<ItemStack> tempLoot = new ArrayList<>(generatedLoot);
+            for (ItemStack item : tempLoot) {
                 Optional<FurnaceRecipe> optional = context.getWorld().getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(item), context.getWorld());
                 if (optional.isPresent()) {
                     ItemStack itemstack = optional.get().getRecipeOutput();
